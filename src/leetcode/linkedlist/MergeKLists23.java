@@ -1,5 +1,9 @@
 package leetcode.linkedlist;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * 给你一个链表数组，每个链表都已经按升序排列。
  *
@@ -71,6 +75,43 @@ public class MergeKLists23 {
             pre.next = list2;
         }
         return result.next;
+    }
+
+
+    //解法一： 做排序，然后构造链表，复杂度knlognk
+    //将list全部加到ArrayList，在排序，复制度nk * log(nk)  n表示链表平均节点数，k为链表数
+    public ListNode mergeKLists(ArrayList<ListNode> lists) {
+
+        if(lists==null){
+            return null;
+        }
+        ArrayList<ListNode> list = new ArrayList<>();
+        for (ListNode head:lists
+        ) {
+            while (head!=null){
+                list.add(head);
+                head=head.next;
+            }
+        }
+        Collections.sort(list, new Comparator<ListNode>() {
+            @Override
+            public int compare(ListNode o1, ListNode o2) {
+                if(o1.val<o2.val){
+                    return -1;
+                }else if(o1.val > o2.val){
+                    return 1;
+                }else return 0;
+            }
+        });
+        //连接新的链表
+        for(int i = 0 ; i < list.size() - 1;i++){
+            list.get(i).next = list.get(i+1);
+        }
+        if(list.size()>0){
+            list.get(list.size()-1).next =  null;
+            return list.get(0);
+        }else return null;
+
     }
 
 }
