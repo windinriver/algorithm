@@ -6,20 +6,85 @@ import java.util.Queue;
 
 public class TreeNode {
 
-    int val;
+    public int val;
 
-    TreeNode left;
+    //记录左子树的数量
+    public int count;
 
-    TreeNode right;
+    public TreeNode left;
 
-    TreeNode() {}
+    public TreeNode right;
 
-    TreeNode(int val) { this.val = val; }
+    public TreeNode() {}
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
+    public TreeNode(int val) { this.val = val; }
+
+    public TreeNode(int val, TreeNode left, TreeNode right) {
         this.val = val;
         this.left = left;
         this.right = right;
+    }
+
+
+    /**
+     * 二插查找树插入
+     * @param root 二插查找树
+     * @param node 插入节点
+     */
+    public static void BST_INSERT(TreeNode root, TreeNode node) {
+        //若小于当前节点
+        if (node.val < root.val) {
+            if (root.left!=null) {
+                BST_INSERT(root.left, node);
+            } else{
+                root.left = node;
+            }
+        } else {
+            if (root.right != null) {
+                BST_INSERT(root.right, node);
+            } else {
+                root.right = node;
+            }
+        }
+    }
+
+    /**
+     * 二插查找树插入
+     * @param root 二插查找树
+     * @param val 插入节点
+     */
+    public static void BST_INSERT(TreeNode root, int val) {
+        //若小于当前节点
+        if (val < root.val) {
+            if (root.left!=null) {
+                BST_INSERT(root.left, val);
+            } else{
+                root.left = new TreeNode(val);
+            }
+        } else {
+            if (root.right != null) {
+                BST_INSERT(root.right, val);
+            } else {
+                root.right = new TreeNode(val);
+            }
+        }
+    }
+
+
+    public static boolean BST_SEARCH(TreeNode root, int val) {
+        if (root== null) {
+            return false;
+        }
+        if (root.val == val) {
+            return true;
+        }
+        if (root.val < val) {
+            BST_INSERT(root.right, val);
+        }
+        if (root.val > val) {
+            BST_INSERT(root.left, val);
+        }
+        return false;
     }
 
 
