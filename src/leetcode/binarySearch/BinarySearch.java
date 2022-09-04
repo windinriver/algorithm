@@ -41,4 +41,69 @@ public class BinarySearch {
         }
         return false;
     }
+
+    //返回左边界
+    public int  lower_bound(int[] a,int target){
+        if(a==null){
+            return -1;
+        }
+        int l = 0;
+        int r = a.length;
+        int mid = (l + r) >> 1;
+        while (l < r) {
+            if (target <= a[mid]) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return l;
+    }
+
+
+    //返回左边界
+    public int  lower_bound2(int[] a,int target){
+        if(a==null){
+            return -1;
+        }
+        int l = 0;
+        int r = a.length-1;
+        int mid = (l + r) >> 1;
+        while (l <= r) {
+            if (target == a[mid]) {
+                if (mid != 0 || target == a[mid-1]) {
+                    r = mid -1;
+                } else {
+                    return mid;
+                }
+            } else if (target > a[mid]) {
+                l = mid + 1;
+            } else {
+                r = mid -1;
+            }
+        }
+        return l;
+    }
+
+
+    //返回右边界
+    public  int upper_bound(int []a,int target){
+        if(a==null){
+            return -1;
+        }
+        int l = 0;
+        int r = a.length;
+        int mid = (l + r) >> 1;
+        while (l < r) {
+
+            if (target >= a[mid]) {
+                l = mid;
+            }else {
+                r = mid -1;
+            }
+        }
+        return r;
+    }
+
+
 }
